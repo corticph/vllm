@@ -89,7 +89,9 @@ class DeepseekV32MultiTokenPredictorLayer(nn.Module):
             get_sparse_mla_index_group_max_rows(vllm_config),
         )
         self.shared_head = SharedHead(
-            config=config, prefix=prefix, quant_config=quant_config
+            config=config,
+            prefix=maybe_prefix(prefix, "shared_head"),
+            quant_config=quant_config,
         )
         self.mtp_block = DeepseekV32DecoderLayer(
             vllm_config,
